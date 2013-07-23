@@ -4,13 +4,14 @@
 
 Use the following dependency in your project's pom.xml
 
-<dependency>
-   <groupId>io.hull</groupId>
-   <artifactId>hull-client</artifactId>
-   <version>0.1-SNAPSHOT</version>
-</dependency>
+    <dependency>
+        <groupId>io.hull</groupId>
+        <artifactId>hull-client</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </dependency>
 
 If you want to compile it locally
+
     $ git clone git@github.com:
     $ cd hull-java
     $ mvn install
@@ -20,6 +21,7 @@ If you want to compile it locally
 ### Configuration
 
 If you're using Spring, you can create a bean to store your Hull configuration:
+
     <bean id="hullConfig" class="io.hull.HullConfiguration">
         <constructor-arg type="String"><value>YOUR_APP_ID</value></constructor-arg>
         <constructor-arg type="String"><value>YOUR_APP_SECRET</value></constructor-arg>
@@ -47,7 +49,6 @@ You can call each by providing an endpoint path:
 To include parameters, include a Map<String,Object> as an argument:
 
     // Will convert to request params for GET/DELETEs
-
     Map<String, Object> params = new HashMap <String, Object> ();
     params.put("limit", 10);
     params.put("page", 2);
@@ -89,9 +90,14 @@ If you're using Spring, include the filter in your web.xml by using the Delegati
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-(The filter-name should match the id of the bean you created earlier.)
+(The `filter-name` should match the id of the bean you created earlier.)
 
 Once this is added, the request attribute "Hull-User-Id" will be available, populated with an ID if a user is logged in.
+    // use the String
+    String userId = request.getAttribute("Hull-User-Id");
+    // or access it via the static variable
+    String userId = request.getAttribute(HullFilter.HULL_USER_ID_KEY);
+
 
 If you're using another framework or want to create a custom filter, you can use the methods available in HullUtils to authenticate a user.
 
@@ -105,6 +111,7 @@ If you're using another framework or want to create a custom filter, you can use
     HullUtils.authenticateUser(cookieVal, config.getAppSecret());
 
 
+    
 ### Bring your own users
 
 In addition to providing multiple social login options, Hull allows you to create and authenticate users that are registered within your own app.
