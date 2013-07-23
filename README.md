@@ -75,7 +75,7 @@ To use Hull entities :
     hullClient.put("entity", params);
 
 ### HullFilter: Identity the current logged in Hull user
-You'll need to register your HullFilter so that it's included in the filter chain for your requests.
+If your app is an HTTP Servlet, you can register the HullFilter so that it's included in the filter chain for your requests.
 
 If you're using Spring, include the filter in your web.xml by using the DelegatingFilterProxy:
 
@@ -93,19 +93,31 @@ If you're using Spring, include the filter in your web.xml by using the Delegati
 
 Once this is added, the request attribute "Hull-User-Id" will be available, populated with an ID if a user is logged in.
 
+If you're using another framework or want to create a custom filter, you can use the methods available in HullUtils to authenticate a user.
+
+    // Grab cookie in whatever format your framework uses
+    String cookieVal = getCookieVal("hull_51acbcd12345667"); // make sure you're using your appId for the cookie name
+
+    // Make sure the value is URL decoded
+    cookieVal = urlDecode(cookieVal);
+
+    // Authenticate the user with the given cookieVal and your appSecret
+    HullUtils.authenticateUser(cookieVal, config.getAppSecret());
+
+
 ### Bring your own users
 
 In addition to providing multiple social login options, Hull allows you to create and authenticate users that are registered within your own app.
 
 To use this feature, you just have to add a `userHash` key at the initialization of hull.js.
-You can generate this by calling HullClient.generateUserHash(Map<String,Object> userInfo)  and including this value in your template.
+You can generate this by calling HullUtils.generateUserHash(Map<String,Object> userInfo, String secret)  and including this value in your template.
 
 You should include the basic identifiers for your user (id and email) in the userInfo Map, but you can add additional fields if necessary as well.
 
     Map<String, Object> params = new HashMap <String, Object> ();
     params.put("id", myUser.getId());
     params.put("email", myUser.getEmail());
-    String userHash = hullClient.generateUserHash(params);
+    String userHash = hullClient.generateUserHash(params, hullConfig.getAppSecret());
 
 Read more info about the "Bring your own users" feature:
 http://blog.hull.io/post/53441940108/2-ways-to-log-users-in-with-hull-and-your-own-login

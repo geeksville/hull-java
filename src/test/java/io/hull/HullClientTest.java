@@ -5,9 +5,6 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created with IntelliJ IDEA.
  * User: crystal
@@ -51,7 +48,6 @@ public class HullClientTest {
 
         Assert.assertEquals(url, ORG_URL + "/api/v1/" + path );
     }
-
 
     @Test
     public void testApiPathWithEmptyQueryString() throws Exception {

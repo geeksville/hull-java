@@ -206,31 +206,4 @@ public class HullClient {
         req.addHeader("User-Agent", "Hull Java Client v");
     }
 
-    /**
-     * Generate a Hull user hash - used for the "Bring your own users" feature.
-     * @param userInfo should at least include "id" and "email" as keys
-     * @return String of the user hash
-     * @throws IOException
-     */
-    public String generateUserHash(Map<String,Object> userInfo) throws IOException {
-        if(userInfo==null) {
-            return null;
-        }
-
-        // Timestamp
-        String timestamp = String.valueOf(System.currentTimeMillis()/1000);
-
-        // Convert to json and base-64 encode
-        String userJson = mapper.writeValueAsString(userInfo);
-        String message = Base64.encodeBase64String(userJson.getBytes());
-
-        // HMAC SHA1
-        String digest = HullUtils.calculateDigest(message + " " + timestamp, config.getAppSecret());
-
-        StringBuilder builder = new StringBuilder();
-        builder.append(message).append(" ");
-        builder.append(digest).append(" ");
-        builder.append(timestamp);
-        return builder.toString();
-    }
 }
