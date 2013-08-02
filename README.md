@@ -93,6 +93,7 @@ If you're using Spring, include the filter in your web.xml by using the Delegati
 (The `filter-name` should match the id of the bean you created earlier.)
 
 Once this is added, the request attribute "Hull-User-Id" will be available, populated with an ID if a user is logged in.
+
     // use the String
     String userId = request.getAttribute("Hull-User-Id");
     // or access it via the static variable
