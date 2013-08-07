@@ -7,7 +7,7 @@ Use the following dependency in your project's pom.xml
     <dependency>
         <groupId>io.hull</groupId>
         <artifactId>hull-client</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.1</version>
     </dependency>
 
 If you want to compile it locally
