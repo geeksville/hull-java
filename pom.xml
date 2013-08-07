@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.hull</groupId>
     <artifactId>hull-client</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.1</version>
     <packaging>jar</packaging>
 
     <name>Hull Java Client</name>
@@ -17,6 +17,14 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
 
     <scm>
         <url>git@github.com:crystalschang/hull-java.git</url>
@@ -71,7 +79,18 @@
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>2.2.2</version>
+                        <configuration>
+                            <!-- need this for gpg plugin to work correctly -->
+                            <mavenExecutorId>forked-path</mavenExecutorId>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.0</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
