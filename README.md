@@ -125,7 +125,7 @@ You should include the basic identifiers for your user (id and email) in the use
     Map<String, Object> params = new HashMap <String, Object> ();
     params.put("id", myUser.getId());
     params.put("email", myUser.getEmail());
-    String userHash = hullClient.generateUserHash(params, hullConfig.getAppSecret());
+    String userHash = HullUtils.generateUserHash(params, hullConfig.getAppSecret());
 
 Read more info about the "Bring your own users" feature:
 http://blog.hull.io/post/53441940108/2-ways-to-log-users-in-with-hull-and-your-own-login
