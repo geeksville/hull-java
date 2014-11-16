@@ -95,7 +95,7 @@ public class HullUtils {
      * @return String of the user hash
      * @throws IOException
      */
-    public String generateUserHash(Map<String,Object> userInfo, String secret) throws IOException {
+    public static String generateUserHash(Map<String,Object> userInfo, String secret) throws IOException {
         if(userInfo==null) {
             return null;
         }
